@@ -12,7 +12,7 @@ exports.db = {
         host: '127.0.0.1',
         user:     'root',
         password: '',
-        database: 'email_config',
+        database: 'EMAIL_CONFIG',
 
 	// database map enables some neat navigation features
         // for jumping between related records; see views/inc/row_detail_value.jade 
