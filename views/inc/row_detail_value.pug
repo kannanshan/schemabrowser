@@ -1,0 +1,40 @@
+//- Here we use a db_map (if defined) to reference the related tables in 
+//- the row detail results table, where appropriate. Also, we use our 
+//- knowledge of the primary key, if present, to give a style to the 
+//- table cell.
+
+- var map = req.dbconfig.db_map
+- var value = values[i][key]
+- var isVarTypeOf = function (_var, _type) {try { return _var.constructor === _type; } catch(ex) { return false; } }
+- var type = '';
+
+if (value !== null && typeof value === 'object')
+  if (isVarTypeOf(value, Date))
+    - type = 'date'
+  else
+    - value = JSON.stringify( value )
+    - type = 'json'
+
+if !map || !map[table]
+    td(class="data " + type)= value
+
+else 
+    - var tmap = map[table]
+    - var fk
+    - var pk = false
+
+    if tmap.pk && key == tmap.pk
+      - pk = true
+      //- no? then, maybe, a foreign key value?
+    else if tmap.fk
+      - fk = tmap.fk
+
+    //- output
+    if pk
+      td(class="data pk " + type)= value
+    else if fk && fk[key]
+      - var ref = fk[key]
+      td(class="data fk " + type)
+        a(href="/"+dbId+"/"+ref[0]+"/"+ref[1]+"/"+value)= value
+    else 
+      td(class="data " + type)= value

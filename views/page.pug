@@ -1,0 +1,37 @@
+//- this is an equivalent of the parent.html in the view/ directory
+html
+  head
+    title
+      block title
+    link(rel="stylesheet", href="/_/css/style.css")
+    script(src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js")
+  body
+    #topnav
+      block topnav
+      if authenticate
+        a(href="/logout") Logout <<<
+      else
+        | &nbsp;
+
+    block topnav2
+
+    p.breadcrumbs
+      if breadcrumbs
+        each crumb,i in breadcrumbs
+          if i > 0
+            |  / 
+          a(href="/" + crumb.u)= crumb.t
+        |  / 
+
+    #content
+      h1 
+        block title
+      block content
+
+    #footer
+      | db-browse: 
+      a(href='https://github.com/kurmanka/db-browse') source on github
+      |  · 
+      a(href='/_reset') reset
+      |  · 
+      a(href='/_exit') restart

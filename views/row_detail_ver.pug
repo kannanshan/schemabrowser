@@ -1,0 +1,17 @@
+extends row_detail_wrapper
+
+block data
+
+  table.light
+    each data,key in values[0]
+      tr
+        th= key
+        
+        - var i = 0
+        
+        while i < rows_show
+          if values[i][key]!=null 
+            include inc/row_detail_value.pug
+          else 
+            td.data.null null
+          - i++

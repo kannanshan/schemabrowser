@@ -1,0 +1,24 @@
+extends page
+
+block title
+  | History of previous SQL
+
+block content
+  if values.length
+    first = values[0]
+    table.light
+      tr: each v,k in first
+        if k != 'id'
+          th= k
+
+      each row, i in values
+        tr
+          each v,k in first
+            if k != 'id'
+              td.data
+                if k == 'sql'
+                  a(href="/:sql/#{row.id}")= row[k]
+                else 
+                  = row[k]
+  else
+    p History is empty
